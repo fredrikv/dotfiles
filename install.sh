@@ -3,7 +3,7 @@
 for DOTFILE in *.dotfile
 do
     SOURCE="$(pwd)/$DOTFILE"
-    TARGET="~/.${DOTFILE%\.dotfile}"
+    TARGET=~/".${DOTFILE%\.dotfile}"
 
     if [ -e "$TARGET" ];
     then
