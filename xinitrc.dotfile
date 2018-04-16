@@ -1,0 +1,46 @@
+#!/bin/bash
+
+eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
+export SSH_AUTH_SOCK
+
+
+# Host specific settings
+HOST_SPECIFIC_XINITRC=~/.xinitrc-$(hostname)
+if [ -e "$HOST_SPECIFIC_XINITRC" ]
+then
+	source "$HOST_SPECIFIC_XINITRC"
+fi
+
+# Screen settings
+~/.screenlayout/auto.sh
+
+# Touchpad
+synclient PalmDetect=1 TapButton1=0 TapButton2=0 TapButton3=0 PalmMinWidth=4 PalmMinZ=150
+
+# Screensaver
+xautolock \
+    -detectsleep \
+    -time 3 \
+    -locker "lock-screen" \
+    -notify 30 \
+    -notifier "notify-send -u critical -t 10000 -- 'Locking screen in 30 seconds'" &
+
+# Background
+sh ~/.fehbg &
+
+# Tray icons
+pasystray &
+nm-applet &
+
+# Java fix for gray windows
+wmname compiz
+export _JAVA_AWT_WM_NONREPARENTING=1
+
+# Keyboard
+setxkbmap se dvorak
+sleep 10 && xmodmap ~/.xmodmap &
+xbindkeys
+
+# Window manager
+compton &
+exec i3

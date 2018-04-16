@@ -1,0 +1,5 @@
+#!/bin/bash
+
+#redshift -t 7200K:3500K -l 64:19 &
+chromium &
+ssh-agent add ~/.ssh/home_rsa
