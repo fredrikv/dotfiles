@@ -16,7 +16,7 @@ endif
 " let g:vdebug_options["continuous_mode"] = 1
 
 
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 map <silent> <C-n> :NERDTreeToggle<CR>
 
 
@@ -25,7 +25,7 @@ Plug 'scrooloose/nerdcommenter'
 " At the time of writin (2018-04-15), git@github.com:universal-ctags/ctags.git
 " seems to be the version of ctags that generates the most accurate results
 " Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
-Plug 'shawncplus/phpcomplete.vim'
+Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
 Plug 'joonty/vim-taggatron'
 let g:tagcommands = {
 \    "php" : {"tagfile":".php.tags","args":"-R","cmd":"ctags"},
@@ -33,7 +33,7 @@ let g:tagcommands = {
 \    "python" : {"tagfile":".py.tags","args":"-R","cmd":"ctags"}
 \}
 let g:taggatron_verbose = 0
-Plug 'joonty/vim-phpqa'
+Plug 'joonty/vim-phpqa', { 'for': 'php' }
 let g:phpqa_codesniffer_autorun = 0
 let g:phpqa_messdetector_autorun = 0
 let g:phpqa_codecoverage_autorun = 0
@@ -101,6 +101,7 @@ Plug 'honza/vim-snippets'
 Plug 'sniphpets/sniphpets'
 Plug 'sniphpets/sniphpets-symfony'
 Plug 'arnaud-lb/vim-php-namespace'
+
 "Plugin 'xolox/vim-easytags'
 "let g:easytags_async = 1
 Plug 'xolox/vim-misc'
@@ -157,8 +158,6 @@ set number
 set relativenumber
 set cursorline
 nnoremap <space> za
-
-
 
 set hlsearch
 set incsearch
