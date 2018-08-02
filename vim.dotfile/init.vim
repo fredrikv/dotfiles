@@ -39,6 +39,9 @@ let g:phpqa_messdetector_autorun = 0
 let g:phpqa_codecoverage_autorun = 0
 let g:phpqa_codecoverage_file = "coverage.xml"
 
+Plug 'janko-m/vim-test'
+Plug 'w0rp/ale'
+
 Plug 'majutsushi/tagbar'
 " autocmd VimEnter * nested :call tagbar#autoopen(0)
 " autocmd FileType * nested :call tagbar#autoopen(0)
