@@ -21,11 +21,15 @@ map <silent> <C-n> :NERDTreeToggle<CR>
 
 
 Plug 'scrooloose/nerdcommenter'
+Plug 'jceb/vim-orgmode'
+Plug 'tpope/vim-speeddating'
 
 " At the time of writin (2018-04-15), git@github.com:universal-ctags/ctags.git
 " seems to be the version of ctags that generates the most accurate results
 " Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
 Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
+" let g:phpcomplete_parse_docblock_comments = 1
+
 Plug 'joonty/vim-taggatron'
 let g:tagcommands = {
 \    "php" : {"tagfile":".php.tags","args":"-R","cmd":"ctags"},
@@ -46,6 +50,7 @@ Plug 'majutsushi/tagbar'
 " autocmd VimEnter * nested :call tagbar#autoopen(0)
 " autocmd FileType * nested :call tagbar#autoopen(0)
 " autocmd BufEnter * nested :call tagbar#autoopen(0)
+nmap <C-s> :TagbarToggle<CR>
 
 " avoid quickfix list to open below tagbar
 augroup DragQuickfixWindowDown
@@ -68,6 +73,12 @@ let g:pdv_template_dir = $HOME ."/.local/share/nvim/plugged/pdv/templates_snip"
 " Git
 Plug 'tpope/vim-fugitive'
 set diffopt+=vertical
+:nnoremap <Leader>gc :Gcommit -v<CR>
+:nnoremap <Leader>gs :Gstatus<CR>
+:nnoremap <Leader>gw :Gwrite<CR>
+:nnoremap <Leader>gd :Gdiff<CR>
+:nnoremap <Leader>gb :Gblame -w<CR>
+:nnoremap <Leader>gf :Gfetch<CR>
 
 Plug 'airblade/vim-gitgutter'
 let g:gitgutter_diff_args = '--ignore-all-space'
@@ -81,20 +92,7 @@ Plug 'wellle/targets.vim'
 Plug 'stephpy/vim-php-cs-fixer'
 let g:php_cs_fixer_path = "php-cs-fixer"
 
-Plug 'scrooloose/syntastic'
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-let g:syntastic_php_checkers = ["php", "phpcs", "phpmd"]
-let g:syntastic_php_phpcs_args="--standard=PSR2 -n --report=csv"
-
-
+Plug 'w0rp/ale'
 
 " Snippets
 " Track the engine.
@@ -111,6 +109,8 @@ Plug 'xolox/vim-misc'
 Plug 'evidens/vim-twig'
 Plug 'jaxbot/semantic-highlight.vim'
 :nnoremap <Leader>s :SemanticHighlightToggle<cr>
+
+Plug 'sheerun/vim-polyglot'
 
 
 
@@ -154,6 +154,27 @@ let g:seek_subst_disable = 1
 
 " Initialize plugin system
 call plug#end()
+
+" Search
+set grepprg=ack
+" Find word under cursor (small search)
+:nnoremap <Leader>fw :grep! --ignore-directory=vendor "\b<C-R><C-W>\b"<CR>:cw<CR><CR>
+
+" Find text in clipboards (small search)
+:nnoremap <Leader>fp :grep! --ignore-directory=vendor "\b<C-R><C-R>+\b"<CR>:cw<CR><CR>
+
+:nnoremap <Leader>ff :grep! --ignore-directory=vendor "\b\b"<LEFT><LEFT><LEFT>
+
+
+
+
+" Find word under cursor (large search)
+:nnoremap <Leader>Fw :grep! "\b<C-R><C-W>\b"<CR>:cw<CR><CR>
+
+" Find text in clipboards (large search)
+:nnoremap <Leader>Fp :grep! "\b<C-R><C-R>+\b"<CR>:cw<CR><CR>
+
+
 
 
 " SETTINGS
