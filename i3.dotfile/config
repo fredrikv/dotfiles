@@ -134,7 +134,7 @@ assign [instance="web.skype.com"] $ws_chat
 assign [instance="outlook.office.com"] $ws_chat
 assign [class="Chromium"] $ws_browser
 assign [instance="Navigator"] $ws_browser
-for_window [instance="Devtools"] move container to workspace $ws_debug
+for_window [instance="Devtools"] move container to workspace $ws_debug, focus
 assign [class="^jetbrains-.+"] $ws1
 for_window [class="^jetbrains-.+"] focus
 
