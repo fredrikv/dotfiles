@@ -15,7 +15,7 @@ fi
 ~/.screenlayout/auto.sh
 
 # Touchpad
-synclient PalmDetect=1 TapButton1=0 TapButton2=0 TapButton3=0 PalmMinWidth=4 PalmMinZ=150
+synclient PalmDetect=1 TapButton1=0 TapButton2=0 TapButton3=0 PalmMinWidth=4 PalmMinZ=150 CoastingSpeed=0
 
 # Screensaver
 xautolock \
