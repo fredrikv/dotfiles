@@ -122,7 +122,7 @@ assign [instance="outlook.office.com"] "10:chat"
 assign [class="Chromium"] "2:browser"
 assign [class="Firefox-esr"] "2:browser"
 assign [class="^jetbrains-.+"] "1:code"
-# for_window [class="^jetbrains-.+"] focus
+for_window [class="^jetbrains-.+"] focus
 
 # Assign workspaces to screens
 workspace "1:code" output primary
