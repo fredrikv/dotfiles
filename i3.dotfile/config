@@ -120,7 +120,8 @@ bindsym $mod+Shift+0 move container to workspace "10:chat"
 assign [instance="web.skype.com"] "10:chat"
 assign [instance="outlook.office.com"] "10:chat"
 assign [class="Chromium"] "2:browser"
-assign [class="Firefox-esr"] "2:browser"
+assign [instance="Navigator"] "2:browser"
+assign [instance="Devtools"] "8:debug"
 assign [class="^jetbrains-.+"] "1:code"
 for_window [class="^jetbrains-.+"] focus
 
