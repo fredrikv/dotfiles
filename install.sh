@@ -1,19 +1,26 @@
 #!/bin/bash
 
-for DOTFILE in *.dotfile
-do
-    SOURCE="$(pwd)/$DOTFILE"
-    TARGET=~/".${DOTFILE%\.dotfile}"
+function linkit {
+    source=$1
+    target=$2
 
-    if [ -e "$TARGET" ];
+    if [ -e "$target" ];
     then
-            if [ "$(readlink $TARGET)" != "$(readlink -f $SOURCE)" ]; then
-                echo "[ FAIL ] The file already exists: $TARGET"
-            fi
+        if [ "$(readlink $target)" != "$(readlink -f $source)" ]; then
+            echo "[ FAIL ] The file already exists: $target"
+        fi
     else
-        ln -s "$SOURCE" "$TARGET"
+        ln -s "$source" "$target"
         if [ "$?" != "0" ]; then
-            echo "[ FAIL ] $TARGET"
+            echo "[ FAIL ] $target"
         fi
     fi
+}
+
+for dotfile in *.dotfile **/*.dotfile
+do
+    source="$(pwd)/$dotfile"
+    target=~/".${dotfile%\.dotfile}"
+
+    linkit "$source" "$target"
 done
