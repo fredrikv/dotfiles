@@ -1,35 +1,66 @@
 return {
-  'nvim-treesitter/nvim-treesitter',
-  build = function()
-    require('nvim-treesitter.install').update({ with_sync = true })
-  end,
-  dependencies = {
-    'nvim-treesitter/playground',
-    'JoosepAlviste/nvim-ts-context-commentstring',
-    'nvim-treesitter/nvim-treesitter-textobjects',
+  {
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
+    main = 'nvim-treesitter.configs',
+    event = { 'BufReadPost', 'BufNewFile' },
+    opts = {
+      ensure_installed = 'all',
+      highlight = { enable = true },
+      indent = { enable = true },
+      ignore_install = { '' },
+      auto_install = true,
+      -- vim-matchup config
+      -- NOTE: I'm not sure about the quote matching feature for vim-matchup
+      -- May remove this in the future
+      matchup = { enable = true, include_match_words = true, enable_quotes = true },
+    },
   },
-  opts = {
-    ensure_installed = 'all',
-    highlight = {
-      enable = true,
-    },
-    indent = {
-      enable = true,
-    },
-    context_commentstring = {
-      enable = true,
-    },
-    textobjects = {
-      select = {
-        enable = true,
-        lookahead = true,
-        keymaps = {
-          ['if'] = '@function.inner',
-          ['af'] = '@function.outer',
-          ['ia'] = '@parameter.inner',
-          ['aa'] = '@parameter.outer',
-        },
+
+  -- nvim-treesitter-context
+  {
+    'nvim-treesitter/nvim-treesitter-context',
+    dependencies = 'nvim-treesitter/nvim-treesitter',
+    event = { 'BufReadPost', 'BufNewFile' },
+    config = true,
+  },
+
+  -- vim-matchup
+  { 'andymass/vim-matchup', dependencies = 'nvim-treesitter/nvim-treesitter', event = { 'BufReadPost', 'BufNewFile' } },
+
+  -- treesj
+  {
+    'Wansmer/treesj',
+    dependencies = 'nvim-treesitter/nvim-treesitter',
+    opts = { max_join_length = 150 },
+    keys = {
+      {
+        '<leader>m',
+        function()
+          return require('treesj').toggle()
+        end,
+        desc = 'Toggle node under cursor',
       },
+    },
+  },
+
+  -- rainbow-delimiters.nvim
+  {
+    'hiphish/rainbow-delimiters.nvim',
+    dependencies = 'nvim-treesitter/nvim-treesitter',
+    event = { 'BufReadPost', 'BufNewFile' },
+  },
+
+  -- indent-blankline.nvim
+  {
+    'lukas-reineke/indent-blankline.nvim',
+    main = 'ibl',
+    dependencies = 'nvim-treesitter/nvim-treesitter',
+    event = { 'BufReadPost', 'BufNewFile' },
+    opts = {
+      indent = { char = '▏' },
+      scope = { char = '▏' },
+      exclude = { filetypes = { 'lazy', 'dashboard', 'mason' } },
     },
   },
 }

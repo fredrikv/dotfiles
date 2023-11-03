@@ -36,3 +36,4 @@ vim.opt.redrawtime = 10000 -- Allow more time for loading syntax on large files
 vim.opt.exrc = true
 vim.opt.secure = true
 vim.opt.titlestring = '%f // nvim'
+-- vim.opt.loaded_matchparen = true

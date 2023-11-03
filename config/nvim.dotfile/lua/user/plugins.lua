@@ -55,9 +55,6 @@ require("lazy").setup({
   -- Automatically add closing brackets, quotes, etc.
   { 'windwp/nvim-autopairs', config = true },
 
-  -- Add smooth scrolling to avoid jarring jumps
-  { 'karb94/neoscroll.nvim', config = true },
-
   -- All closing buffers without closing the split window.
   { import = 'user.plugins.bufdelete' },
 
@@ -109,9 +106,21 @@ require("lazy").setup({
   -- Project Configuration.
   { import = 'user.plugins.projectionist' },
 
+  -- DB UI
+  { import = 'user.plugins.vim-dadbod-ui' },
+
   -- Testing helper
   { import = 'user.plugins.vim-test' },
 
   -- Colorize Hex Codes
   { import = 'user.plugins.colorizer' },
+
+  -- Git branch management
+  { 'idanarye/vim-merginal', dependencies = 'tpope/vim-fugitive'},
+  --
+  -- Github Copilot
+  { import = 'user.plugins.copilot' },
+
+  -- Org mode
+  { import = 'user.plugins.orgmode' },
 })
