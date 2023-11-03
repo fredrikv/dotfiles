@@ -1,17 +1,43 @@
 #!/bin/bash
 
-mkdir -p build
-cd build
+function installit {
+    install_script=$1
+    package=${1#packages/}
+    build_path="build/$package"
 
+    mkdir -p build
 
-# Install neovim
-sudo apt-get install ninja-build gettext cmake unzip curl
+    if [ -e "$build_path" ];
+    then
+        echo -n "[ INFO ] Updating $package... "
 
-if [ ! -f neovim ]; then
-    git clone https://github.com/neovim/neovim
+        if [ "$(git -C "$build_path" pull)" == "Already up to date." ]; then
+            echo "Already up to date."
+	    return
+        fi
+    else
+        echo -n "[ INFO ] Installing $package... "
+    fi
+
+    output=$(bash -c "cd build && source \"../${install_script}\" 2>&1")
+    if [ 0 = "$output" ]; then
+	echo "DONE"
+    else
+	echo "FAILED"
+	if [ "" != "$output" ]; then
+	    echo "$output"
+	fi
+    fi
+}
+
+if [[ $# -eq 0 ]]; then
+    for install_script in packages/*
+    do
+	installit "${install_script}"
+    done
+else
+    for package in "$@"; do
+	installit "packages/$package"
+    done
 fi
-
-cd neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo
-cd build && cpack -G DEB && sudo dpkg -i nvim-linux64.deb
-
 
