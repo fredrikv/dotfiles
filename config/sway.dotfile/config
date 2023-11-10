@@ -1,0 +1,317 @@
+# Default config for sway
+#
+# Copy this to ~/.config/sway/config and edit it to your liking.
+#
+# Read `man 5 sway` for a complete reference.
+
+### Variables
+#
+# Logo key. Use Mod1 for Alt.
+set $mod Mod4
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+# Your preferred terminal emulator
+set $term kitty
+# Your preferred application launcher
+# Note: pass the final command to swaymsg so that the resulting window can be opened
+# on the original workspace that the command was run on.
+set $menu dmenu_path | dmenu | xargs swaymsg exec --
+
+# switch to workspace
+set $ws_code 1:code
+set $ws_browser 2:browser
+set $ws3 3
+set $ws4 4
+set $ws5 5
+set $ws6 6
+set $ws7 7
+set $ws_debug 8:debug
+set $ws_music 9:music
+set $ws_chat 10:chat
+set $external_screen HDMI-A-1
+set $internal_screen eDP-1
+
+### Output configuration
+#
+# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+# output * bg ~/w/wallpapers/origami_tux_dark_4K.jpg fill
+#output $internal_screen bg ~/w/wallpapers/IMG_20200403_125735_16.jpg fill
+output $internal_screen bg ~/w/wallpapers/IMG_6113.JPG  fill
+output $external_screen bg ~/w/wallpapers/IMG_20191006_171359_BURST7.jpg fill
+#
+# Example configuration:
+#
+#   output HDMI-A-1 resolution 1920x1080 position 1920,0
+#
+# You can get the names of your outputs by running: swaymsg -t get_outputs
+output $internal_screen scale 2
+output $internal_screen resolution 3200x1800 position 0,0
+output $external_screen position 1600,0
+
+### Idle configuration
+#
+# Example configuration:
+#
+# exec swayidle -w \
+#          timeout 300 'swaylock -f -c 000000' \
+#          timeout 600 'swaymsg "output * dpms off"' \
+#               resume 'swaymsg "output * dpms on"' \
+#          before-sleep 'swaylock -f -c 000000'
+#
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
+
+input "type:keyboard" {
+    xkb_layout dvorak
+#    xkb_layout se
+    xkb_variant se
+    xkb_options caps:escape
+}
+
+### Input configuration
+#
+# Example configuration:
+#
+#   input "2:14:SynPS/2_Synaptics_TouchPad" {
+#       dwt enabled
+#       tap enabled
+#       natural_scroll enabled
+#       middle_emulation enabled
+#   }
+#
+# You can get the names of your inputs by running: swaymsg -t get_inputs
+# Read `man 5 sway-input` for more information about this section.
+
+### Key bindings
+#
+# Basics:
+#
+    # Start a terminal
+    bindsym $mod+Return exec $term
+
+    # Kill focused window
+    bindsym $mod+Shift+c kill
+
+    # Start your launcher
+    bindsym $mod+p exec $menu
+
+    # Volume
+    bindsym XF86AudioRaiseVolume exec "pactl set-sink-volume 0 +5%"
+    bindsym XF86AudioLowerVolume exec "pactl set-sink-volume 0 -5%"
+    bindsym XF86AudioMute exec "pactl set-sink-mute 0 toggle"
+
+    # Screen brightness
+    bindsym XF86MonBrightnessUp exec "brightnessctl s +5%"
+    bindsym XF86MonBrightnessDown exec "brightnessctl s 5%-"
+
+    # Screenshot
+
+    # Lock
+    bindsym Ctrl+Mod1+l exec "swaylock"
+    bindsym Ctrl+Mod1+h exec "swaylock & systemctl hibernate"
+    bindsym Ctrl+Mod1+s exec "swaylock & systemctl suspend"
+
+    # Drag floating windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    # Despite the name, also works for non-floating windows.
+    # Change normal to inverse to use left mouse button for resizing and right
+    # mouse button for dragging.
+    floating_modifier $mod normal
+
+    # Reload the configuration file
+    bindsym $mod+Shift+r reload
+
+    # Exit sway (logs you out of your Wayland session)
+    bindsym $mod+Shift+q exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+#
+# Moving around:
+#
+    # Move your focus around
+    bindsym $mod+$left focus left
+    bindsym $mod+$down focus down
+    bindsym $mod+$up focus up
+    bindsym $mod+$right focus right
+    # Or use $mod+[up|down|left|right]
+    bindsym $mod+Left focus left
+    bindsym $mod+Down focus down
+    bindsym $mod+Up focus up
+    bindsym $mod+Right focus right
+
+    # Move the focused window with the same, but add Shift
+    bindsym $mod+Shift+$left move left
+    bindsym $mod+Shift+$down move down
+    bindsym $mod+Shift+$up move up
+    bindsym $mod+Shift+$right move right
+    # Ditto, with arrow keys
+    bindsym $mod+Shift+Left move left
+    bindsym $mod+Shift+Down move down
+    bindsym $mod+Shift+Up move up
+    bindsym $mod+Shift+Right move right
+#
+# Workspaces:
+#
+    # Switch to workspace
+    bindsym $mod+1 workspace $ws_code
+    bindsym $mod+2 workspace $ws_browser
+    bindsym $mod+3 workspace $ws3
+    bindsym $mod+4 workspace $ws4
+    bindsym $mod+5 workspace $ws5
+    bindsym $mod+6 workspace $ws6
+    bindsym $mod+7 workspace $ws7
+    bindsym $mod+8 workspace $ws_debug
+    bindsym $mod+9 workspace $ws_music
+    bindsym $mod+0 workspace $ws_chat
+    # Move focused container to workspace
+    bindsym $mod+Shift+1 move container to workspace $ws_code
+    bindsym $mod+Shift+2 move container to workspace $ws_browser
+    bindsym $mod+Shift+3 move container to workspace $ws3
+    bindsym $mod+Shift+4 move container to workspace $ws4
+    bindsym $mod+Shift+5 move container to workspace $ws5
+    bindsym $mod+Shift+6 move container to workspace $ws6
+    bindsym $mod+Shift+7 move container to workspace $ws7
+    bindsym $mod+Shift+8 move container to workspace $ws_debug
+    bindsym $mod+Shift+9 move container to workspace $ws_music
+    bindsym $mod+Shift+0 move container to workspace $ws_chat
+
+
+# Assign classes to workspaces
+assign [instance="web.skype.com"] $ws_chat
+assign [instance="outlook.office.com"] $ws_chat
+assign [class="Chromium"] $ws_browser
+assign [instance="Navigator"] $ws_browser
+for_window [instance="Devtools"] move container to workspace $ws_debug, focus
+assign [class="^jetbrains-.+"] $ws1
+for_window [class="^jetbrains-.+"] focus
+
+# Assign workspaces to screens
+workspace $ws_code output $external_screen
+workspace $ws_browser output $external_screen
+workspace $ws3 output $external_screen
+workspace $ws4 output $external_screen
+workspace $ws5 output $external_screen
+workspace $ws6 output $external_screen
+workspace $ws7 output $external_screen
+workspace $ws_debug output $internal_screen
+workspace $ws_music output $internal_screen
+workspace $ws_chat output $internal_screen
+
+#
+# Layout stuff:
+#
+    # You can "split" the current object of your focus with
+    # $mod+b or $mod+v, for horizontal and vertical splits
+    # respectively.
+    bindsym $mod+b splith
+    bindsym $mod+v splitv
+
+    # Switch the current container between different layout styles
+    bindsym $mod+o layout stacking
+    bindsym $mod+aring layout stacking
+    bindsym $mod+comma layout tabbed
+    bindsym $mod+adiaeresis layout tabbed
+    bindsym $mod+period layout toggle split
+    bindsym $mod+odiaeresis layout toggle split
+
+    # Make the current focus fullscreen
+    bindsym $mod+f fullscreen
+
+    # Toggle the current focus between tiling and floating mode
+    bindsym $mod+Shift+space floating toggle
+
+    # Swap focus between the tiling area and the floating area
+    bindsym $mod+space focus mode_toggle
+
+    # Move focus to the parent container
+    bindsym $mod+a focus parent
+
+    # Move focus to the parent container
+    bindsym $mod+c focus child
+#
+# Scratchpad:
+#
+    # Sway has a "scratchpad", which is a bag of holding for windows.
+    # You can send windows there and get them back later.
+
+#
+# Scratchpad:
+#
+    # Sway has a "scratchpad", which is a bag of holding for windows.
+    # You can send windows there and get them back later.
+
+    # Move the currently focused window to the scratchpad
+    bindsym $mod+Shift+minus move scratchpad
+
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+    bindsym $mod+minus scratchpad show
+#
+# Resizing containers:
+#
+mode "resize" {
+    # left will shrink the containers width
+    # right will grow the containers width
+    # up will shrink the containers height
+    # down will grow the containers height
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+    # Ditto, with arrow keys
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# 
+# Colors
+#
+set $color1 #ffffffcc
+set $color2 #000000cc
+set $color3 #5c5c5ccc
+set $color4 #323232cc
+client.focused $color1 $color1 $color2
+client.unfocused $color2 $color2 $color1
+gaps inner 10
+gaps outer 0
+smart_gaps on
+
+
+
+#
+# Status Bar:
+#
+# Read `man 5 sway-bar` for more information about this section.
+bar {
+    position bottom
+
+    # When the status_command prints a new line to stdout, swaybar updates.
+    # The default just shows the current date and time.
+    status_command while date +'%Y-%m-%d %H:%M:%S'; do sleep 1; done
+
+    colors {
+        statusline $color1
+        background $color4
+
+        focused_workspace $color2 $color3 $color1
+        inactive_workspace #32323200 #32323200 #5c5c5c
+    }
+}
+
+include /etc/sway/config.d/*
+workspace $ws_code
+
+exec redshift
+exec xrdb ~/.Xresources
+exec firefox
+exec xbattbar -c
