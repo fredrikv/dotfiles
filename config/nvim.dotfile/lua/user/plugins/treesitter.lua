@@ -5,10 +5,10 @@ return {
     main = 'nvim-treesitter.configs',
     event = { 'BufReadPost', 'BufNewFile' },
     opts = {
-      ensure_installed = 'all',
+      ensure_installed = {},
       highlight = { enable = true },
       indent = { enable = true },
-      ignore_install = { '' },
+      ignore_install = {},
       auto_install = true,
       -- vim-matchup config
       -- NOTE: I'm not sure about the quote matching feature for vim-matchup

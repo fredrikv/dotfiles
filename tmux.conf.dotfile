@@ -9,6 +9,11 @@ bind -n C-l if-shell "$is_vim" "send-keys C-l" "select-pane -R"
 bind -n C-\ if-shell "$is_vim" "send-keys C-\\" "select-pane -l"
 bind C-l send-keys 'C-l'
 
+set -g default-terminal "tmux-256color"
+set -ga terminal-overrides ",*256col*:Tc"
+set -ga terminal-overrides '*:Ss=\E[%p1%d q:Se=\E[ q'
+set-environment -g COLORTERM "truecolor"
+
 set-option -g history-limit 100000
 
 # vim-like keys
