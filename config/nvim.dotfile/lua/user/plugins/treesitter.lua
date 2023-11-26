@@ -45,11 +45,11 @@ return {
   },
 
   -- rainbow-delimiters.nvim
-  {
-    'hiphish/rainbow-delimiters.nvim',
-    dependencies = 'nvim-treesitter/nvim-treesitter',
-    event = { 'BufReadPost', 'BufNewFile' },
-  },
+  -- {
+  --   'hiphish/rainbow-delimiters.nvim',
+  --   dependencies = 'nvim-treesitter/nvim-treesitter',
+  --   event = { 'BufReadPost', 'BufNewFile' },
+  -- },
 
   -- indent-blankline.nvim
   {

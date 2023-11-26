@@ -20,7 +20,7 @@ return {
       endfunction
 
       let g:test#custom_strategies = {'floaterm': function('FloatermStrategy')}
-      let g:test#strategy = 'floaterm'
+      let g:test#strategy = 'tmuxify'
     ]])
   end
 }

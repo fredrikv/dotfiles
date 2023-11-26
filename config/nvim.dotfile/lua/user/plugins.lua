@@ -53,7 +53,7 @@ require("lazy").setup({
   { import = 'user.plugins.vim-rooter' },
 
   -- Automatically add closing brackets, quotes, etc.
-  { 'windwp/nvim-autopairs', config = true },
+  -- { 'windwp/nvim-autopairs', config = true },
 
   -- All closing buffers without closing the split window.
   { import = 'user.plugins.bufdelete' },
@@ -77,7 +77,7 @@ require("lazy").setup({
   { import = 'user.plugins.bufferline' },
 
   -- Display indentation lines.
-  { import = 'user.plugins.indent-blankline' },
+  -- { import = 'user.plugins.indent-blankline' },
 
   -- Add a dashboard.
   { import = 'user.plugins.dashboard-nvim' },
@@ -123,4 +123,6 @@ require("lazy").setup({
 
   -- Org mode
   { import = 'user.plugins.orgmode' },
+
+  { 'jebaum/vim-tmuxify' },
 })
